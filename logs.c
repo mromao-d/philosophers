@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   logs.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/06 15:30:31 by mromao-d          #+#    #+#             */
+/*   Updated: 2024/02/06 16:15:48 by mromao-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // eat -> think -> sleep
@@ -9,27 +21,27 @@
 // time to sleep -> after eating
 // number each philo must eat (optional)
 
-
-
 // Thread é uma forma como um processo/tarefa de um programa de 
-// computador é divido em duas ou mais tarefas que podem ser 
+// computador é divido em duas ou mais tarefas que podem ser
 // executadas concorrentemente.
 
 // change any state.
 // format: <timestmp_in_ms> <phi_id> <action>
 void	ft_log(t_philo *philo, char *log)
 {
-	size_t  now;
+	size_t	now;
 
 	pthread_mutex_lock(&philo->props->log);
 	now = get_current_time();
-	if (strcmp(DEAD, log) == 0 && philo->props->is_dead == 0)
+	if (ft_strcmp(DEAD, log) == 0 && philo->props->is_dead == 0)
 	{
-		printf("%llu philo %d %s\n", now - philo->props->start_time, philo->phi_id, log);
+		printf("%llu philo %d %s\n", \
+			(long long)now - (long long)philo->props->start_time, philo->phi_id, log);
 		philo->props->is_dead = 1;
 	}
 	if (philo->props->is_dead == 0)
-		printf("%llu philo %d %s\n", now - philo->props->start_time, philo->phi_id, log);
+		printf("%llu philo %d %s\n", \
+		(long long)now - (long long)philo->props->start_time, philo->phi_id, log);
 	pthread_mutex_unlock(&philo->props->log);
 	return ;
 }

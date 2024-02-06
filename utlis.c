@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utlis.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/06 15:30:53 by mromao-d          #+#    #+#             */
+/*   Updated: 2024/02/06 15:59:10 by mromao-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // eat -> think -> sleep
@@ -8,8 +20,6 @@
 // time to eat -> time philo takes to eat
 // time to sleep -> after eating
 // number each philo must eat (optional)
-
-
 
 // Thread é uma forma como um processo/tarefa de um programa de 
 // computador é divido em duas ou mais tarefas que podem ser 

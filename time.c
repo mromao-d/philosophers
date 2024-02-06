@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   time.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/06 15:30:50 by mromao-d          #+#    #+#             */
+/*   Updated: 2024/02/06 15:59:01 by mromao-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // eat -> think -> sleep
@@ -9,12 +21,9 @@
 // time to sleep -> after eating
 // number each philo must eat (optional)
 
-
-
 // Thread é uma forma como um processo/tarefa de um programa de 
 // computador é divido em duas ou mais tarefas que podem ser 
 // executadas concorrentemente.
-
 
 // get current time
 size_t	get_current_time(void)
@@ -33,6 +42,6 @@ int	ft_usleep(size_t milliseconds)
 
 	start = get_current_time();
 	while ((get_current_time() - start) < milliseconds)
-		usleep(milliseconds/10);
+		usleep (milliseconds / 10);
 	return (0);
 }

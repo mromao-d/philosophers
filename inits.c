@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inits.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/06 15:30:28 by mromao-d          #+#    #+#             */
+/*   Updated: 2024/02/06 16:09:09 by mromao-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // eat -> think -> sleep
@@ -18,7 +30,7 @@ int	ft_init_philos(t_props *props)
 	i = -1;
 	while (++i < props->nb_philos)
 	{
-		props->philo[i].phi_id = i+1;
+		props->philo[i].phi_id = i + 1;
 		props->philo[i].eat_count = 0;
 		props->philo[i].is_dead = 0;
 		props->philo[i].eating = 0;
@@ -26,7 +38,6 @@ int	ft_init_philos(t_props *props)
 		props->philo[i].left_f = &props->forks[i];
 		props->philo[i].right_f = &props->forks[i - 1];
 		props->philo[i].props = props;
-		// props->philo[i].t_before_d = props->t_before_d;
 		pthread_mutex_init(&props->philo[i].lock, NULL);
 	}
 	props->philo[0].left_f = &props->forks[0];
@@ -35,12 +46,14 @@ int	ft_init_philos(t_props *props)
 }
 
 // in case there is only one philo, I dont need both structures to have threads
-// a thread can be joined or detached --> needed to reclaim the storage space when the thread terminates
+// a thread can be joined or detached --> needed to 
+// 		reclaim the storage space when the thread terminates
 // returns 1 if everythong is ok
 int	ft_one_philo(t_props *props)
 {
 	props->start_time = get_current_time();
-	if (pthread_create(&props->phi_t_id[0], NULL, &ft_routine, &props->philo[0]))
+	if (pthread_create(&props->phi_t_id[0], NULL, \
+		&ft_routine, &props->philo[0]))
 	{
 		printf("Error creating thread on ft_one_philo\n");
 		return (0);
@@ -51,12 +64,11 @@ int	ft_one_philo(t_props *props)
 	return (1);
 }
 
-
 // assignes args (props) to each philosofer
 // matches philos with props
 // returns 1 if everything is ok
 // it also inits the threads
-int ft_init_props(t_props *props, char **argv)
+int	ft_init_props(t_props *props, char **argv)
 {
 	props->nb_philos = atoi(argv[1]);
 	props->start_time = get_current_time();
@@ -99,31 +111,34 @@ int ft_init_props(t_props *props, char **argv)
 // 	return (NULL);
 // }
 
+int	th_error(char *log, char *funct)
+{
+	printf("%s on function %s\n", log, funct);
+	return (1);
+}
+
 // need sleep, otherwise the threads will not be created in order
 // validate if have to increment the wait period
 int	ft_init_threads(t_props *props)
 {
 	int			i;
-	pthread_t	dead_t;
 
 	i = -1;
 	props->start_time = get_current_time();
 	while (++i < props->nb_philos)
 	{
-		// if (pthread_create(&props->phi_t_id[i], NULL, &ft_routine_i, (void *) &i))
-		if (pthread_create(&props->phi_t_id[i], NULL, &ft_routine, (void *) &props->philo[i]))
-		{
-			printf("Error on ft_init_threads\n");
-			return (1);
-		}
+		if (pthread_create(&props->phi_t_id[i], NULL, \
+			&ft_routine, (void *) &props->philo[i]))
+			return (th_error("Error initializing threads", "ft_init_threads"));
 		ft_usleep(1);
 	}
 	i = -1;
 	while (++i < props->nb_philos)
-	{	
+	{
 		if (pthread_join(props->phi_t_id[i], NULL))
 		{
-			printf("Error init_threads on philo_t_id %d", props->philo[i].phi_id);
+			printf("Error init_threads on philo_t_id %d", \
+				props->philo[i].phi_id);
 			return (0);
 		}
 	}

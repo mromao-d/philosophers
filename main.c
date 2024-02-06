@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/06 15:30:35 by mromao-d          #+#    #+#             */
+/*   Updated: 2024/02/06 15:52:00 by mromao-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // eat -> think -> sleep
@@ -9,12 +21,9 @@
 // time to sleep -> after eating
 // number each philo must eat (optional)
 
-
-
 // Thread é uma forma como um processo/tarefa de um programa de 
 // computador é divido em duas ou mais tarefas que podem ser 
 // executadas concorrentemente.
-
 
 int	main(int argc, char **argv)
 {
@@ -22,7 +31,7 @@ int	main(int argc, char **argv)
 
 	if (!ft_val_args(argc, argv))
 		return (1);
-	props = calloc(sizeof(t_props), 1); // nao deveria ter que multiplicar pelo numero de filosofos?? -> nao
+	props = calloc(sizeof(t_props), 1);
 	if (!props)
 		return (2);
 	if (!ft_init_props(props, argv))
@@ -30,9 +39,5 @@ int	main(int argc, char **argv)
 		printf("Failed to init props\n");
 		return (3);
 	}
-	// ft_print_philos(props);
-	// ft_log(props, EAT);
-	// printf("main\n");
-	// printf("%ld\n", ft_atol("1293645344243200"));
 	return (0);
 }

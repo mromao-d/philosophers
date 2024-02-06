@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/06 15:30:43 by mromao-d          #+#    #+#             */
+/*   Updated: 2024/02/06 16:25:37 by mromao-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <pthread.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <stdio.h>
-#include <time.h>
-#include <unistd.h>
-#include <string.h>
+# include <pthread.h>
+# include <sys/time.h>
+# include <stdio.h>
+# include <time.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
 
 // actions
-#define FORK "has taken a fork"
-#define EAT "is eating"
-#define SLEEP "is sleeping"
-#define THINKING "is thinking"
-#define DEAD "is dead"
+# define FORK "has taken a fork"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINKING "is thinking"
+# define DEAD "died"
 
 typedef struct s_phio
 {
@@ -51,17 +63,17 @@ typedef struct s_props
 	t_philo			*philo;
 }	t_props;
 
-// inits.c
-int ft_init_props(t_props *props, char **argv);
-int	ft_init_threads(t_props *props);
-
 // args.c
-int	ft_val_args(int argc, char **argv);
-void	ft_print_philos(t_props *props);
+int		ft_val_args(int argc, char **argv);
+// void	ft_print_philos(t_props *props);
+
+// inits.c
+int		ft_init_props(t_props *props, char **argv);
+int		ft_init_threads(t_props *props);
 
 // time.c
 size_t	get_current_time(void);
-int	ft_usleep(size_t milliseconds);
+int		ft_usleep(size_t milliseconds);
 
 // logs
 void	ft_log(t_philo *philo, char *log);
@@ -74,5 +86,9 @@ void	*ft_routine_i(void	*in_nb);
 // utils
 long	ft_atol(const char *str);
 void	ft_exit(t_props *props);
+int		ft_strcmp(char *s1, char *s2);
+
+// main
+int		main(int argc, char **argv);
 
 #endif

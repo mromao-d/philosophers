@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   threads.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/06 15:30:46 by mromao-d          #+#    #+#             */
+/*   Updated: 2024/02/06 16:36:30 by mromao-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // eat -> think -> sleep
@@ -9,8 +21,6 @@
 // time to sleep -> after eating
 // number each philo must eat (optional)
 
-
-
 // Thread é uma forma como um processo/tarefa de um programa de 
 // computador é divido em duas ou mais tarefas que podem ser 
 // executadas concorrentemente.
@@ -18,12 +28,12 @@
 // change any state.
 // format: <timestmp_in_ms> <phi_id> <action>
 
-
-// locks philos (needed because they are being requested at the same time by the eat function and sheet)
+// locks philos (needed because they are being requested 
+// at the same time by the eat function and sheet)
 // --> of course it happens for each and every single one of them
-void	*ft_dead(void   *in_philo)
+void	*ft_dead(void *in_philo)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *) in_philo;
 	while (!(philo->props->is_dead))
@@ -39,11 +49,11 @@ void	*ft_dead(void   *in_philo)
 // I need to give the t_before_d here otherwise this will be poop
 void	*ft_routine(void	*in_philo)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *) in_philo;
 	philo->t_before_d = philo->props->t_before_d + get_current_time();
-	if (pthread_create(&philo->phi_t, NULL, &ft_dead, (void *) philo))
+	if (pthread_create(&philo->phi_t, NULL, &ft_dead, /* (void *)  */philo))
 	{
 		printf("Error ft_routine\n");
 		return ((void *)1);
@@ -60,10 +70,9 @@ void	*ft_routine(void	*in_philo)
 
 void	*ft_routine_i(void	*in_nb)
 {
-	int *i;
+	int	*i;
 
 	i = (int *) in_nb;
 	printf("Here with filo %d\n", *i);
 	return (NULL);
 }
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   args.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/06 15:30:22 by mromao-d          #+#    #+#             */
+/*   Updated: 2024/02/06 16:17:07 by mromao-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // eat -> think -> sleep
@@ -25,7 +37,7 @@ int	ft_val_nb(char **argv)
 			while (argv[i][j] == ' ')
 				j++;
 			if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
-			{	
+			{
 				printf("shit happened on the arguments\n");
 				return (0);
 			}
@@ -42,16 +54,17 @@ int	ft_val_args(int argc, char **argv)
 		printf("Error\nInvalid number of args");
 		return (0);
 	}
-	return (ft_val_nb(argv));
+	// return (ft_val_nb(argv));
+	ft_val_nb(argv);
 	return (1);
 }
 
 // just to check that everything is ok
-void	ft_print_philos(t_props *props)
-{
-	int	i;
+// void	ft_print_philos(t_props *props)
+// {
+// 	int	i;
 
-	for (i = 0; i < props->nb_philos; i++)
-		printf("Hello from philo %d\n", props->philo[i].phi_id);
-	return ;
-}
+// 	for (i = 0; i < props->nb_philos; i++)
+// 		printf("Hello from philo %d\n", props->philo[i].phi_id);
+// 	return ;
+// }
