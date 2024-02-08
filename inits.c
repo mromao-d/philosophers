@@ -81,7 +81,7 @@ int	ft_init_props(t_props *props, char **argv)
 	props->forks = calloc(props->nb_philos, sizeof(pthread_mutex_t));
 	if (!(props->forks))
 		return (0);
-	props->philo = calloc(props->nb_philos, sizeof(t_philo));
+	props->philo = calloc(props->nb_philos, sizeof(t_philo *));
 	if (!(props->philo))
 		return (0);
 	ft_init_philos(props);
