@@ -6,7 +6,7 @@
 /*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:30:46 by mromao-d          #+#    #+#             */
-/*   Updated: 2024/02/06 16:36:30 by mromao-d         ###   ########.fr       */
+/*   Updated: 2024/02/11 14:24:06 by mromao-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,37 @@ void	*ft_dead(void *in_philo)
 	return (NULL);
 }
 
+// int	ft_check_dead_old(t_philo *philo)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	while (++i < philo->props->nb_philos)
+// 	{
+// 		if(philo->props->is_dead == 1)
+// 			return (1);
+// 		if (get_current_time() >= philo->t_before_d && philo->eating == 0)
+// 		{
+// 			ft_log(philo, DEAD);
+// 			return (1);
+// 		}
+// 	}
+// 	return (0);
+// }
+
+int	ft_check_dead(t_philo *philo)
+{
+	if (philo->props->is_dead == 1)
+		return (1);
+	if (get_current_time() >= philo->t_before_d && philo->eating == 0)
+	{
+		ft_log(philo, DEAD);
+		return (1);
+	}
+	return (0);
+}
+
+		// printf("here\n");
 // I need to give the t_before_d here otherwise this will be poop
 void	*ft_routine(void	*in_philo)
 {
@@ -53,20 +84,36 @@ void	*ft_routine(void	*in_philo)
 
 	philo = (t_philo *) in_philo;
 	philo->t_before_d = philo->props->t_before_d + get_current_time();
-	if (pthread_create(&philo->phi_t, NULL, &ft_dead, /* (void *)  */philo))
-	{
-		printf("Error ft_routine\n");
-		return ((void *)1);
-	}
-	while (!philo->props->is_dead)
+	while (!ft_check_dead(philo))
 	{
 		ft_eat(philo);
 		ft_log(philo, THINKING);
 	}
-	if (pthread_join(philo->phi_t, NULL))
-		return ((void *) 1);
 	return (NULL);
 }
+
+		// printf("here\n");
+// I need to give the t_before_d here otherwise this will be poop
+// void	*ft_routine_old(void	*in_philo)
+// {
+// 	t_philo	*philo;
+
+// 	philo = (t_philo *) in_philo;
+// 	philo->t_before_d = philo->props->t_before_d + get_current_time();
+// 	if (pthread_create(&philo->phi_t, NULL, &ft_dead, (void *) philo))
+// 	{
+// 		printf("Error ft_routine\n");
+// 		return ((void *)1);
+// 	}
+// 	while (!philo->props->is_dead)
+// 	{
+// 		ft_eat(philo);
+// 		ft_log(philo, THINKING);
+// 	}
+// 	if (pthread_join(philo->phi_t, NULL))
+// 		return ((void *) 1);
+// 	return (NULL);
+// }
 
 void	*ft_routine_i(void	*in_nb)
 {

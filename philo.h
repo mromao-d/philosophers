@@ -6,7 +6,7 @@
 /*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:30:43 by mromao-d          #+#    #+#             */
-/*   Updated: 2024/02/06 16:25:37 by mromao-d         ###   ########.fr       */
+/*   Updated: 2024/02/11 14:19:51 by mromao-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define THINKING "is thinking"
 # define DEAD "died"
 
-typedef struct s_phio
+typedef struct s_philo
 {
 	pthread_t		phi_t;
 
@@ -54,9 +54,8 @@ typedef struct s_props
 	int				is_dead;
 
 	int				eat_all;
-	pthread_mutex_t	eat_mutex;
 
-	pthread_t		*phi_t_id;
+	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	log;
 	pthread_mutex_t	*forks;
 
@@ -82,13 +81,17 @@ void	ft_eat(t_philo *philo);
 // threads
 void	*ft_routine(void	*in_philo);
 void	*ft_routine_i(void	*in_nb);
+int		ft_check_dead(t_philo *philo);
 
 // utils
 long	ft_atol(const char *str);
 void	ft_exit(t_props *props);
 int		ft_strcmp(char *s1, char *s2);
+void	*ft_calloc(size_t nmemb, size_t size);
+int		ft_strlen(char *str);
 
 // main
 int		main(int argc, char **argv);
+int		ft_one_philo(t_props *props);
 
 #endif

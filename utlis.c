@@ -6,7 +6,7 @@
 /*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:30:53 by mromao-d          #+#    #+#             */
-/*   Updated: 2024/02/06 15:59:10 by mromao-d         ###   ########.fr       */
+/*   Updated: 2024/02/11 14:21:11 by mromao-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,18 @@ int	ft_strcmp(char *s1, char *s2)
 	return (*(char *)s1 - *(char *)s2);
 }
 
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		;
+	return (i);
+}
+
 void	ft_free_data(t_props *props)
 {
-	if (props->phi_t_id)
-		free(props->phi_t_id);
 	if (props->forks)
 		free(props->forks);
 	if (props->philo)
@@ -86,5 +94,6 @@ void	ft_exit(t_props *props)
 		pthread_mutex_destroy(&props->philo[i].lock);
 	}
 	pthread_mutex_destroy(&props->log);
+	pthread_mutex_destroy(&props->dead_lock);
 	return (ft_free_data(props));
 }

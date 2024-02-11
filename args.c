@@ -6,7 +6,7 @@
 /*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:30:22 by mromao-d          #+#    #+#             */
-/*   Updated: 2024/02/06 16:17:07 by mromao-d         ###   ########.fr       */
+/*   Updated: 2024/02/11 14:17:43 by mromao-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 // number each philo must eat (optional)
 
 // validate args are numbers
-// returns 0 if shit has happened
+// returns 1 if shit has happened
 int	ft_val_nb(char **argv)
 {
 	int	i;
@@ -39,24 +39,50 @@ int	ft_val_nb(char **argv)
 			if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
 			{
 				printf("shit happened on the arguments\n");
-				return (0);
+				return (1);
 			}
 		}
 	}
-	return (1);
+	return (0);
+}
+
+// validate if arg is bigger than max int
+// returns 1 if shit happened
+int	ft_validate_size(char **argv)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	while (argv[i])
+	{
+		len = ft_strlen(argv[i]);
+		if (len > 10)
+		{
+			printf("Arg bigger than int\n");
+			return (1);
+		}
+		if (len == 10 && ft_strcmp(argv[i], "2147483647") > 0)
+		{
+			printf("Arg bigger than int\n");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
 // validate args
+// returns > 0 if shit happens
 int	ft_val_args(int argc, char **argv)
 {
 	if (argc != 5 && argc != 6) 
 	{
 		printf("Error\nInvalid number of args");
-		return (0);
+		return (1);
 	}
-	// return (ft_val_nb(argv));
-	ft_val_nb(argv);
-	return (1);
+	return (ft_val_nb(argv) + ft_validate_size(argv));
+	return (0);
 }
 
 // just to check that everything is ok
