@@ -58,9 +58,10 @@ int	ft_init_philos(t_props *props)
 		props->philo[i].is_dead = 0;
 		props->philo[i].eating = 0;
 		pthread_mutex_init(&props->philo[i].lock, NULL);
-		if (props->nb_philos > 1)
-			props->philo[i].right_f = &props->forks[i - 1];
-		props->philo[i].left_f = &props->forks[i];
+		pthread_mutex_init(&props->forks[i], NULL);
+		// if (props->nb_philos > 1)
+		// 	props->philo[i].right_f = &props->forks[i - 1];
+		// props->philo[i].left_f = &props->forks[i];
 		props->philo[i].props = props;
 		ft_assign_forks(&props->philo[i]);
 	}
@@ -127,13 +128,13 @@ int	ft_init_threads(t_props *props)
 	int			i;
 
 	i = -1;
-	props->start_time = get_current_time();
+	// props->start_time = get_current_time();
 	while (++i < props->nb_philos)
 	{
 		if (pthread_create(&props->philo[i].phi_t, NULL, \
 			&ft_routine, &props->philo[i]))
 			return (th_error("Error initializing threads", "ft_init_threads"));
-		ft_usleep(10);
+		usleep(900);
 	}
 	i = -1;
 	while (++i < props->nb_philos)

@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philos
+NAME = philo
 # SRC = *.c
 SRC = args.c inits.c logs.c main.c threads.c time.c utlis.c utils_2.c
 OBJS = $(SRC:.c=.o)

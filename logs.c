@@ -52,9 +52,11 @@ void	ft_forks(t_philo *philo)
 {
 	if (philo->props->nb_philos > 1)
 	{
-		pthread_mutex_lock(philo->right_f);
+		if (pthread_mutex_lock(philo->left_f) != 0)
+			printf("Error locking left fork\n");
 		ft_log(philo, FORK);
-		pthread_mutex_lock(philo->left_f);
+		if (pthread_mutex_lock(philo->right_f) != 0)
+			printf("Error locking right fork\n");
 	}
 	ft_log(philo, FORK);
 }
