@@ -40,11 +40,14 @@ valgrind: $(NAME)
 	valgrind --leak-check=full -s ./$(NAME) 1 2 3 4
 
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(OBJ_PATH)
 
 fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
+
+$(OBJ_PATH):
+	mkdir -p $(OBJ_PATH)
 
 .PHONY: all clean fclean re
