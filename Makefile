@@ -12,8 +12,10 @@
 
 NAME = philo
 # SRC = *.c
-SRC = args.c inits.c logs.c main.c threads.c time.c utlis.c utils_2.c
-OBJS = $(SRC:.c=.o)
+SRC_PATH = ./source/
+OBJ_PATH = ./objs/
+SRC = $(SRC_PATH)args.c $(SRC_PATH)inits.c $(SRC_PATH)logs.c $(SRC_PATH)main.c $(SRC_PATH)threads.c $(SRC_PATH)time.c $(SRC_PATH)utlis.c $(SRC_PATH)utils_2.c $(SRC_PATH)free.c
+OBJS = $(SRC:$(SRC_PATH)%.c=$(OBJ_PATH)%.o)
 
 #CFLAGS = -Wall -Werror -Wextra -g
 CFLAGS = -Wall -Werror -Wextra -g -fsanitize=thread
@@ -28,12 +30,14 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@$(CC) $(OBJS) $(CFLAGS) -o $(NAME)
 
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c | $(OBJ_PATH)
+	$(CC) $(CFLAGS) -c $< -o $@
+
 run: $(NAME)
-#	valgrind --tool=helgrind ./$(NAME) 1 20 10 10
 	./$(NAME) 1 20 10 10
 
 valgrind: $(NAME)
-	valgrind --leak-check=full -s	 ./$(NAME) 1 2 3 4
+	valgrind --leak-check=full -s ./$(NAME) 1 2 3 4
 
 clean:
 	rm -rf $(OBJS)
